@@ -1,14 +1,19 @@
+import { Navigate, Route, Routes } from 'react-router-dom';
 import './App.css';
+import Login from './pages/login/login';
+import Signup from './pages/signup/signup';
+import Home from './pages/Home/home';
+
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        {/* <img src={logo} className="App-logo" alt="logo" /> */}
-        <h1>
-          Saral Document
-        </h1>
-      </header>
+      <Routes>
+        <Route path='/' element={< Navigate to =  "/Login" /> }/>
+        <Route path='/login' element={<Login /> }/>
+        <Route path='/signup' element={<Signup /> }/>
+        <Route path='/home' element={<Home /> }/>
+      </Routes>
     </div>
   );
 }
