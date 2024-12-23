@@ -35,7 +35,8 @@ function Signup(){
                 <button>Signup</button>
                 <div>
                     <span>
-                        <Link to ="..\login">Already have an account?</Link>
+                        Already have an account?&nbsp;     {/*&nbsp is used for adding non-breaking space */}
+                        <Link to ="..\login">Login</Link>
                     </span>
                 </div>
             </form>

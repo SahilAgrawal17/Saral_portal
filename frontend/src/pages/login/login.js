@@ -25,7 +25,8 @@ function Login(){
             <button>Login</button>
             <div>
                 <span>
-                <Link to ="../signup">Create Account</Link>
+                    Don't have an account?&nbsp;    {/*&nbsp is used for adding non-breaking space */}
+                    <Link to ="../signup">Signup</Link>
                 </span>
             </div>
         </form>
