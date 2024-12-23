@@ -33,10 +33,11 @@ function Signup(){
                     />
                 </div>
                 <button>Signup</button>
-                <span>
-                    Already have an account?
-                    <Link to ="\login">Login</Link>
-                </span>
+                <div>
+                    <span>
+                        <Link to ="..\login">Already have an account?</Link>
+                    </span>
+                </div>
             </form>
             {/* <ToastContainer /> */}
         </div>
