@@ -16,13 +16,15 @@ const signup = async(req,res)=>{
         const userModel = new UserModel({name, email, password});
         userModel.password = await bcrypt.hash(password,10); //10 is salting
         await userModel.save();
-        res.status(201)
+
+        return res.status(201)
             .json({
                 message: "Signup successfully",
                 success : true
             })
     }catch(err){
-        res.status(500)
+        console.error(err); //log error for debugging
+        return res.status(500)
             .json({
                 message: "Internal server error",
                 success : false,
@@ -49,11 +51,19 @@ const login = async(req,res)=>{
                 process.env.JWT_SECRET,
                 {expiresIn : '4h'}
             ) 
+
+            // Setting up the JWT token as an HTTP-only cookie
+            res.cookie('jwtToken', jwtToken, {
+                httpOnly: true,                                         // Prevents JavaScript access
+                secure: process.env.NODE_ENV === 'production',          // Use HTTPS in production
+                sameSite: 'Strict',                                     // Strict/Lax/None Strict for "No cookies sent with cross-site requests"
+                maxAge: 4 * 60 * 60 * 1000,                             // 4 hours
+            });
+
             return res.status(200)
             .json({
                 message: "Login successfully",
                 success : true,
-                jwtToken,
                 email,
                 name : user.name
             })
@@ -66,7 +76,8 @@ const login = async(req,res)=>{
                 })
         }
     }catch(err){
-        res.status(500)
+        console.error(err);
+        return res.status(500)
             .json({
                 message: "Internal server error",
                 success : false,
@@ -75,7 +86,21 @@ const login = async(req,res)=>{
     }
 }
 
+const logout = (req, res) => {
+    res.clearCookie('jwtToken', {
+      httpOnly: true, // Ensures the cookie can't be accessed via JavaScript
+      secure: process.env.NODE_ENV === 'production', // Ensures HTTPS in production
+      sameSite: 'Strict', // Prevents cookie from being sent with cross-site requests
+    });
+  
+    return res.status(200).json({
+      message: 'Logged out successfully',
+      success: true,
+    });
+  };
+
 module.exports = {
     signup,
-    login
+    login,
+    logout
 }

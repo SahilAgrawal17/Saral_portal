@@ -11,10 +11,12 @@ const PORT = process.env.PORT || 8080;
 
 
 app.use(bodyParser.json());
-app.use(cors());
+app.use(cors({
+    origin: 'http://localhost:3000',
+    credentials: true,                  // Allow cookies (JWT token in cookies)
+}));
 
 
-app.use('/auth', authRouter);
 app.use('/auth', authRouter);
 
 app.listen(PORT, () => {

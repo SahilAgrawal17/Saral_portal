@@ -1,42 +1,7 @@
 import React from "react";
-import FormContainer from "../../components/forms";
-
-// function Login(){
-//     return(
-//         <div className="container">
-//         <h1>Login</h1>
-//         <form>
-//             <div>
-//                 <label htmlFor="email">Email</label>
-//                 <input 
-//                 type="email"
-//                 name="email"
-//                 placeholder="Enter your email"
-//                 />
-//             </div>
-//             <div>
-//                 <label htmlFor="password">Password</label>
-//                 <input 
-//                 type="password"
-//                 name="password"
-//                 placeholder="Enter your password"
-//                 />
-//             </div>
-//             <button>Login</button>
-//             <div>
-//                 <span>
-//                     Don't have an account?&nbsp;    {/*&nbsp is used for adding non-breaking space */}
-//                     <Link to ="../signup">Signup</Link>
-//                 </span>
-//             </div>
-//         </form>
-//         {/* <ToastContainer /> */}
-//     </div>
-//     )
-// }
+import AuthForm from "../../components/authform"; // Import the new parent component
 
 function Login() {
-  
   const fields = [
     {
       label: "Email",
@@ -54,22 +19,22 @@ function Login() {
     },
   ];
 
-  const handleLogin = (e) => {
-    e.preventDefault();
-    console.log("Login form submitted");
+  const submitHandler = {
+    url: "auth/login", // API endpoint for login
+    redirectPath: "/home",  // Redirect to home after successful login
   };
 
   return (
-    <FormContainer
-      title="Login"
-      fields={fields}
-      buttonLabel="Login"
-      link={{ text: "Don't have an account?", path: "../signup" }}
-      linkText="Signup"
-      submitHandler={handleLogin}
-    />
+    <AuthForm
+  title="Login"
+  fields={fields}
+  submitHandler={submitHandler}
+  linkText="Sign up"  // This is the clickable link
+  linkPath="/signup"
+  linkTextDescription="Don't have an account?"  // This is the description
+/>
+
   );
 }
-  
 
 export default Login;
